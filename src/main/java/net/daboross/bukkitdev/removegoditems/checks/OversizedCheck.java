@@ -22,7 +22,6 @@ import net.daboross.bukkitdev.removegoditems.RemoveGodItemsPlugin;
 import net.daboross.bukkitdev.removegoditems.SkyLog;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 

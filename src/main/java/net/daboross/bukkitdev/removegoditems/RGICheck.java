@@ -22,5 +22,5 @@ import org.bukkit.inventory.ItemStack;
 
 public interface RGICheck {
 
-    public void checkItem(ItemStack itemStack, Inventory playerInventory, Location playerLocation, String playerName);
+    public ItemStack checkItem(ItemStack itemStack, Inventory playerInventory, Location playerLocation, String playerName);
 }

@@ -36,7 +36,7 @@ public class EnchantmentCheck implements RGICheck {
     }
 
     @Override
-    public void checkItem(final ItemStack itemStack, final Inventory inventory, final Location location, final String playerName) {
+    public ItemStack checkItem(final ItemStack itemStack, final Inventory inventory, final Location location, final String playerName) {
         if (itemStack != null && itemStack.getType() != Material.AIR) {
             for (Map.Entry<Enchantment, Integer> entry : itemStack.getEnchantments().entrySet()) {
                 Enchantment e = entry.getKey();
@@ -44,7 +44,7 @@ public class EnchantmentCheck implements RGICheck {
                     if (plugin.isRemove()) {
                         itemStack.setType(Material.AIR);
                         SkyLog.log(LogKey.REMOVE_OVERENCHANT, itemStack.getType(), e.getName(), entry.getValue(), playerName);
-                        return;
+                        return itemStack;
                     } else {
                         if (e.canEnchantItem(itemStack)) {
                             SkyLog.log(LogKey.FIX_OVERENCHANT_LEVEL, e.getName(), entry.getValue(), e.getMaxLevel(), itemStack.getType(), playerName);
@@ -57,5 +57,7 @@ public class EnchantmentCheck implements RGICheck {
                 }
             }
         }
+        
+        return itemStack;
     }
 }

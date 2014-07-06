@@ -34,14 +34,17 @@ public class OversizedCheck implements RGICheck {
     }
 
     @Override
-    public void checkItem(final ItemStack itemStack, final Inventory inventory, final Location location, final String playerName) {
+    public ItemStack checkItem(final ItemStack itemStack, final Inventory inventory, final Location location, final String playerName) {
+    	if (itemStack == null || itemStack.getType() == Material.AIR)
+    		return itemStack;
+
         int maxAmount = itemStack.getType().getMaxStackSize();
         int amount = itemStack.getAmount();
         if (amount > maxAmount) {
             if (plugin.isRemove()) {
                 SkyLog.log(LogKey.REMOVE_OVERSTACK, itemStack.getType().name(), amount, playerName);
                 itemStack.setType(Material.AIR);
-                return;
+                return itemStack;
             }
             int numStacks = amount / maxAmount;
             int left = amount % maxAmount;
@@ -58,5 +61,7 @@ public class OversizedCheck implements RGICheck {
                 }
             }
         }
+        
+        return itemStack;
     }
 }

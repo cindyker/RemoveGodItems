@@ -35,18 +35,26 @@ public class NameLengthCheck implements RGICheck {
     }
 
     @Override
-    public void checkItem(final ItemStack itemStack, final Inventory inventory, final Location location, final String playerName) {
+    public ItemStack checkItem(final ItemStack itemStack, final Inventory inventory, final Location location, final String playerName) {
+    	if (itemStack == null || itemStack.getType() == Material.AIR)
+    	    return itemStack;
+
         String name = itemStack.getItemMeta().getDisplayName();
+        if (name == null)
+        	return itemStack;
+        
         if (name.length() > 32) {
             if (plugin.isRemove()) {
                 SkyLog.log(LogKey.REMOVE_OVERLENGTH, itemStack.getType(), name.length(), playerName);
                 itemStack.setType(Material.AIR);
-                return;
+            } else {
+            	SkyLog.log(LogKey.FIX_OVERLENGTH, name.length(), itemStack.getType(), playerName);
+            	ItemMeta meta = itemStack.getItemMeta();
+            	meta.setDisplayName(name.substring(0, 31));
+            	itemStack.setItemMeta(meta);
             }
-            SkyLog.log(LogKey.FIX_OVERLENGTH, name.length(), itemStack.getType(), playerName);
-            ItemMeta meta = itemStack.getItemMeta();
-            meta.setDisplayName(name.substring(0, 31));
-            itemStack.setItemMeta(meta);
         }
+        
+        return itemStack;
     }
 }

@@ -35,19 +35,23 @@ public class AttributesCheck implements RGICheck {
     }
 
     @Override
-    public void checkItem(final ItemStack itemStack, final Inventory playerInventory, final Location playerLocation, final String playerName) {
+    public ItemStack checkItem(final ItemStack itemStack, final Inventory playerInventory, final Location playerLocation, final String playerName) {
+    	if (itemStack == null || itemStack.getType() == Material.AIR)
+    		return itemStack;
+
         Attributes attributes = new Attributes(itemStack);
         for (Attributes.Attribute attribute : attributes.values()) {
             if (attribute.getAmount() > 10) {
                 if (plugin.isRemove()) {
                     SkyLog.log(LogKey.REMOVE_ATTRIBUTE, itemStack.getType(), attribute.getAttributeType(), attribute.getAmount(), playerName);
                     itemStack.setType(Material.AIR);
-                    return;
                 } else {
                     SkyLog.log(LogKey.FIX_ATTRIBUTE, attribute.getAttributeType(), attribute.getAmount(), itemStack.getType(), playerName);
                     attributes.remove(attribute);
                 }
             }
         }
+        
+        return itemStack;
     }
 }

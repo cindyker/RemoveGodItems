@@ -20,12 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
-import net.daboross.bukkitdev.removegoditems.listeners.ChestOpenListener;
-import net.daboross.bukkitdev.removegoditems.listeners.CreativeInventoryListener;
-import net.daboross.bukkitdev.removegoditems.listeners.InventoryMoveListener;
-import net.daboross.bukkitdev.removegoditems.listeners.ItemPickupListener;
-import net.daboross.bukkitdev.removegoditems.listeners.JoinListener;
-import net.daboross.bukkitdev.removegoditems.listeners.WorldChangeListener;
+import net.daboross.bukkitdev.removegoditems.listeners.*;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -94,6 +89,8 @@ public class RemoveGodItemsPlugin extends JavaPlugin {
                 listener = new WorldChangeListener(this);
             } else if (listenerName.equals("chest-open")) {
                 listener = new ChestOpenListener(this);
+            } else if (listenerName.equals("leave")) {
+                listener = new LeaveListener(this);
             } else {
                 getLogger().log(Level.WARNING, "Unknown listener ''{0}''.", listenerName);
                 continue;

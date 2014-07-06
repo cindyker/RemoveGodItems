@@ -19,10 +19,7 @@ package net.daboross.bukkitdev.removegoditems;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
-import net.daboross.bukkitdev.removegoditems.checks.AttributesCheck;
-import net.daboross.bukkitdev.removegoditems.checks.EnchantmentCheck;
-import net.daboross.bukkitdev.removegoditems.checks.NameLengthCheck;
-import net.daboross.bukkitdev.removegoditems.checks.OversizedCheck;
+import net.daboross.bukkitdev.removegoditems.checks.*;
 import org.bukkit.Location;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -37,6 +34,8 @@ public class MasterChecker {
 
     public MasterChecker(RemoveGodItemsPlugin plugin) {
         this.plugin = plugin;
+        
+        loadChecks();
     }
 
     public void loadChecks() {
@@ -53,6 +52,8 @@ public class MasterChecker {
                 check = new AttributesCheck(plugin);
             } else if (checkName.equals("namelength")) {
                 check = new NameLengthCheck(plugin);
+            } else if (checkName.equals("invaliddata")) {
+                check = new InvalidDataCheck(plugin);
             } else {
                 plugin.getLogger().log(Level.WARNING, "Unknown listener ''{0}''.", checkName);
                 continue;
@@ -66,22 +67,33 @@ public class MasterChecker {
         String name = player.getName();
         PlayerInventory inv = player.getInventory();
         Location loc = player.getLocation();
+        ItemStack[] armor = new ItemStack[inv.getArmorContents().length];
+        ItemStack[] contents = new ItemStack[inv.getContents().length];
+        int i = 0;
         for (ItemStack it : inv.getArmorContents()) {
-            checkItem(it, inv, loc, name);
+            armor[i] = checkItem(it, inv, loc, name);
+            i++;
         }
+        i = 0;
         for (ItemStack it : inv.getContents()) {
-            checkItem(it, inv, loc, name);
+            contents[i] = checkItem(it, inv, loc, name);
+            i++;
         }
+        
+        inv.setArmorContents(armor);
+        inv.setContents(contents);
     }
 
-    public void checkItem(ItemStack itemStack, HumanEntity p) {
-        checkItem(itemStack, p.getInventory(), p.getLocation(), p.getName());
+    public ItemStack checkItem(ItemStack itemStack, HumanEntity p) {
+        return checkItem(itemStack, p.getInventory(), p.getLocation(), p.getName());
     }
 
-    public void checkItem(ItemStack itemStack, Inventory playerInventory, Location playerLocation, String playerName) {
+    public ItemStack checkItem(ItemStack itemStack, Inventory playerInventory, Location playerLocation, String playerName) {
         for (RGICheck check : checks) {
-            check.checkItem(itemStack, playerInventory, playerLocation, playerName);
+            itemStack = check.checkItem(itemStack, playerInventory, playerLocation, playerName);
         }
+        
+        return itemStack;
     }
 
     public void checkItemsNextSecond(Player p) {

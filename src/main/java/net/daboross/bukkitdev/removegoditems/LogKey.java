@@ -24,7 +24,7 @@ public enum LogKey {
     REMOVE_INVALIDDATA("Removed item %s with data %s from %s"),
     FIX_OVERENCHANT_REMOVE("Removed enchantment %s level %s on item %s in inventory of %s"),
     FIX_OVERENCHANT_LEVEL("Changed level of enchantment %s from %s to %s on item %s in inventory of %s"),
-    FIX_OVERSTACK_UNSTACK("Unstacked item %s of size %s to size %s with %s extra stacks of size %s in inventory of %s"),
+    FIX_OVERSTACK_UNSTACK("Unstacked item %s of size %s to size %s with %s extra stacks in inventory of %s"),
     FIX_ATTRIBUTE("Removed attribute %s level %s from %s in inventory of %s"),
     FIX_OVERLENGTH("Cut off name of length %s on %s in inventory of %s"),
     FIX_INVALIDDATA("Set data %s to 0 on %s in inventory of %s");

@@ -54,6 +54,8 @@ public class MasterChecker {
                 check = new NameLengthCheck(plugin);
             } else if (checkName.equals("invaliddata")) {
                 check = new InvalidDataCheck(plugin);
+            } else if (checkName.equals("potions")) {
+            	check = new PotionEffectCheck(plugin);
             } else {
                 plugin.getLogger().log(Level.WARNING, "Unknown listener ''{0}''.", checkName);
                 continue;

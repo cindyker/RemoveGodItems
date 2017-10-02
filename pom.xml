@@ -54,8 +54,8 @@
 
     <repositories>
         <repository>
-            <id>bukkit-repo</id>
-            <url>http://repo.bukkit.org/content/groups/public</url>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
         </repository>
         <repository>
             <id>repo-daboross-net</id>
@@ -63,21 +63,15 @@
         </repository>
         <repository>
         	<id>comphenix-repo</id>
-        	<url>http://assets.comphenix.net/plugin/repository/everything/</url>
+        	<url>http://comphenix.net/content/repositories/snapshots/</url>
         </repository>
     </repositories>
     <dependencies>
         <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>1.7.9-R0.2</version>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.12.2-R0.1-snapshot</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.daboross.metrics.bukkit</groupId>
-            <artifactId>metrics-lite</artifactId>
-            <version>1.0.0</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.comphenix.attribute</groupId>

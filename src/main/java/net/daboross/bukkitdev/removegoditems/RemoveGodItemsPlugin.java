@@ -25,7 +25,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.mcstats.MetricsLite;
 
 public class RemoveGodItemsPlugin extends JavaPlugin {
 
@@ -39,15 +38,7 @@ public class RemoveGodItemsPlugin extends JavaPlugin {
         saveDefaultConfig();
         loadConfiguration();
         checker = new MasterChecker(this);
-        MetricsLite metrics = null;
-        try {
-            metrics = new MetricsLite(this);
-        } catch (IOException ex) {
-            getLogger().log(Level.WARNING, "Unable to create Metrics: {0}", ex.toString());
-        }
-        if (metrics != null) {
-            metrics.start();
-        }
+
     }
 
     @Override
